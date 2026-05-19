@@ -423,7 +423,7 @@ footer a:hover{color:#00A8E8}
           <p>You now know exactly how the system works.<br>The next step takes 30 minutes.</p>
           <a href="#booking" class="btn" style="font-size:15px;padding:14px 32px">Book Your Free Strategy Call →</a>
         </div>
-        <iframe id="vslFrame" src="" title="Stellr Media VSL" allow="autoplay; fullscreen" style="display:none"></iframe>
+        <iframe id="vslFrame" src="" title="Stellr Media VSL" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" style="display:none"></iframe>
       </div>
       <p class="vsl-note"><strong>8,400+</strong> agents have watched this · ⭐⭐⭐⭐⭐</p>
     </div>
@@ -832,25 +832,19 @@ window.addEventListener('scroll', () => {
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('on', window.scrollY > 60));
 
-// ── VSL click-to-play + post-roll hook
-const VSL_ID = 'O5dgbJBPZoM';
+// ── VSL click-to-play + post-roll hook (Vimeo)
 document.getElementById('vslCover').addEventListener('click', () => {
   const frame = document.getElementById('vslFrame');
-  frame.src = `https://www.youtube.com/embed/${VSL_ID}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`;
+  frame.src = 'https://player.vimeo.com/video/1193685904?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479';
   frame.style.display = 'block';
   document.getElementById('vslCover').classList.add('gone');
-});
-// Listen for YouTube ended event (state 0)
-window.addEventListener('message', e => {
-  try {
-    const data = JSON.parse(e.data);
-    if (data.event === 'onStateChange' && data.info === 0) {
-      document.getElementById('vslEnd').classList.add('show');
-      setTimeout(() => {
-        document.getElementById('booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 2800);
-    }
-  } catch(_) {}
+  const player = new Vimeo.Player(frame);
+  player.on('ended', () => {
+    document.getElementById('vslEnd').classList.add('show');
+    setTimeout(() => {
+      document.getElementById('booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 2800);
+  });
 });
 
 // ── Market availability checker
@@ -926,6 +920,6 @@ const cio = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 document.querySelectorAll('[data-target]').forEach(el => cio.observe(el));
 </script>
-
+<script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>
