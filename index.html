@@ -85,13 +85,14 @@ nav.on{background:rgba(255,255,255,0.92);backdrop-filter:var(--blur);-webkit-bac
 .vsl-box{background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:var(--glass-border);border-radius:24px;box-shadow:0 16px 64px rgba(0,0,0,.12);overflow:hidden;aspect-ratio:16/9;position:relative;cursor:pointer}
 .vsl-box iframe{width:100%;height:100%;border:none;display:block}
 
-.vsl-cover{position:absolute;inset:0;background:linear-gradient(135deg,#0A1628 0%,#0D2240 55%,#060E1A 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;transition:opacity .3s}
+.vsl-cover{position:absolute;inset:0;background:url('vsl-thumb.jpg') center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;transition:opacity .3s}
+.vsl-cover::before{content:'';position:absolute;inset:0;background:rgba(6,14,26,.45);border-radius:inherit}
 .vsl-cover.gone{opacity:0;pointer-events:none}
 
-.play{width:84px;height:84px;background:rgba(255,255,255,.95);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;animation:pulse 2s ease-in-out infinite;transition:transform .2s}
+.play{width:84px;height:84px;background:rgba(255,255,255,.95);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;animation:pulse 2s ease-in-out infinite;transition:transform .2s;position:relative;z-index:1}
 @keyframes pulse{0%{box-shadow:0 0 0 8px rgba(0,168,232,.2),0 0 0 20px rgba(0,168,232,.07)}50%{box-shadow:0 0 0 16px rgba(0,168,232,.14),0 0 0 36px rgba(0,168,232,.04)}100%{box-shadow:0 0 0 8px rgba(0,168,232,.2),0 0 0 20px rgba(0,168,232,.07)}}
 .vsl-cover:hover .play{transform:scale(1.08)}
-.vsl-cover-text{color:rgba(255,255,255,.9);font-size:15px;font-weight:600;text-align:center}
+.vsl-cover-text{color:rgba(255,255,255,.9);font-size:15px;font-weight:600;text-align:center;position:relative;z-index:1}
 .vsl-cover-text small{display:block;color:rgba(255,255,255,.45);font-size:12px;margin-top:4px}
 .vsl-note{font-size:13px;color:var(--faint);margin-top:10px}
 .vsl-note strong{color:var(--muted)}
