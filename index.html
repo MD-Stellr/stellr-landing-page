@@ -904,9 +904,14 @@ footer a:hover{color:#00A8E8}
 // ── Nav flush below banner
 const banner = document.getElementById('banner');
 const navEl = document.getElementById('nav');
-function setNavTop(){ navEl.style.top = banner.offsetHeight + 'px'; }
-setNavTop();
-window.addEventListener('resize', setNavTop);
+let bannerH = banner.offsetHeight;
+// Nav sits just below the banner at the top of the page, then slides up with
+// the banner as you scroll so it ends flush against the top edge (no gap).
+function positionNav(){ navEl.style.top = Math.max(0, bannerH - window.scrollY) + 'px'; }
+function measureBanner(){ bannerH = banner.offsetHeight; positionNav(); }
+measureBanner();
+window.addEventListener('resize', measureBanner);
+window.addEventListener('scroll', positionNav, { passive: true });
 
 // ── Scroll progress bar
 const prog = document.getElementById('progress');
